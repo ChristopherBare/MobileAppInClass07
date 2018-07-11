@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">InClass07</string>
+    <string name="newsTitle">News Title</string>
+    <string name="authorName">Author Name</string>
+    <string name="releaseDate">Release Date</string>
+    <string name="image">image</string>
+    <string name="ID">ID</string>
+</resources>
