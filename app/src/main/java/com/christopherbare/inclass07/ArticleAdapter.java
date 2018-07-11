@@ -23,9 +23,9 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Article article = getItem(position);
-        convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_article_item, parent, false);
+        convertView = LayoutInflater.from(getContext()).inflate(R.layout.article_item, parent, false);
 
-        TextView title = convertView.findViewById(R.id.name);
+        TextView title = convertView.findViewById(R.id.articleTitle);
         TextView authorName = convertView.findViewById(R.id.authorName);
         TextView releaseDate = convertView.findViewById(R.id.releaseDate);
         ImageView image = convertView.findViewById(R.id.image);
@@ -37,6 +37,7 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         releaseDate.setText(article.getReleaseDate());
 
         //image
+        if (!article.getImageURL().isEmpty())
         Picasso.get().load(article.getImageURL()).into(image);
 
         return convertView;

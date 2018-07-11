@@ -22,7 +22,7 @@ public class SourceAdapter extends ArrayAdapter<Source> {
         Source source = getItem(position);
         convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_source_item, parent, false);
 
-        TextView name = convertView.findViewById(R.id.name);
+        TextView name = convertView.findViewById(R.id.articleTitle);
         TextView id = convertView.findViewById(R.id.sourceID);
 
         //set the data from the contact object

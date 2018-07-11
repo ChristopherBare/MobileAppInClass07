@@ -30,9 +30,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class NewsActivity extends AppCompatActivity {
-    String apiFirst = "https://newsapi.org/v2/top-headlines?sources=";
-    String apiEnd =  "&apiKey=5e9b2a45503c43e988151236956f3f54";
-    String apiMiddle = "";
+    String apiFirst = "https://newsapi.org/v2/top-headlines?apiKey=5e9b2a45503c43e988151236956f3f54&sources=";
     Activity activity;
     ArrayList<Article> articles;
     ArticleAdapter adapter;
@@ -53,10 +51,9 @@ public class NewsActivity extends AppCompatActivity {
         if(isConnected()) {
             if (getIntent().getExtras() != null){
                 Source source = new Source();
-                source.setName(getIntent().getExtras().getSerializable("sourceName").toString());
-                source.setId(getIntent().getExtras().getSerializable("sourceID").toString());
-                apiMiddle = source.getId();
-                new GetArticleAsync().execute(apiFirst + apiMiddle + apiEnd);
+                source.setName(getIntent().getExtras().getString("sourceName"));
+                source.setId(getIntent().getExtras().getString("sourceID"));
+                new GetArticleAsync().execute(apiFirst + source.getId());
             }
 
         } else
@@ -111,6 +108,7 @@ public class NewsActivity extends AppCompatActivity {
                         article.setImageURL(source.getString("urlToImage"));
                         article.setReleaseDate(source.getString("publishedAt"));
                         article.setDescription(source.getString("description"));
+                        article.setTitle(source.getString("title"));
 
                         Log.d("demo", "doInBackground: " + source.toString());
 
@@ -148,9 +146,9 @@ public class NewsActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
             if (articles.size() == 0) articles.addAll(result);
-
-            adapter = new ArticleAdapter(getApplicationContext(), R.layout.activity_article_item, result);
-            articleList = findViewById(R.id.list_view_sources);
+            Log.d("demo", "onPostExecute: Result size = " + result.size());
+            adapter = new ArticleAdapter(NewsActivity.this, R.layout.article_item, result);
+            Log.d("demo", "onPostExecute: adapter is null =  " + (adapter==null));
             articleList.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }

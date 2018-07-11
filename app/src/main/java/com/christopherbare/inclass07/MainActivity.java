@@ -60,13 +60,12 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
 
-                sourceName = findViewById(R.id.name);
-                sourceID = findViewById(R.id.sourceID);
+                sourceName = view.findViewById(R.id.articleTitle);
+                sourceID = view.findViewById(R.id.sourceID);
 
                 Intent intent = new Intent(MainActivity.this, NewsActivity.class);
                 intent.putExtra("sourceID", sourceID.getText().toString());
                 intent.putExtra("sourceName", sourceName.getText().toString());
-
 
                 startActivity(intent);
             }
