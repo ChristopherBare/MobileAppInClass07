@@ -72,9 +72,6 @@ public class NewsActivity extends AppCompatActivity {
 
         } else
             Toast.makeText(getApplicationContext(), "No Network Connection.", Toast.LENGTH_LONG).show();
-
-
-
     }
 
 
