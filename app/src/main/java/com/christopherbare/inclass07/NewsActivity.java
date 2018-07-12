@@ -3,6 +3,7 @@ package com.christopherbare.inclass07;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -11,6 +12,8 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,13 +57,26 @@ public class NewsActivity extends AppCompatActivity {
                 source.setName(getIntent().getExtras().getString("sourceName"));
                 source.setId(getIntent().getExtras().getString("sourceID"));
                 new GetArticleAsync().execute(apiFirst + source.getId());
+
+                articleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Article article = articles.get(position);
+                        String urlToArticle = article.getArticleURL();
+                        Intent intent = new Intent(NewsActivity.this, WebViewActivity.class);
+                        intent.putExtra("Url", urlToArticle);
+                        startActivity(intent);
+                    }
+                });
             }
 
         } else
             Toast.makeText(getApplicationContext(), "No Network Connection.", Toast.LENGTH_LONG).show();
 
 
+
     }
+
 
     private boolean isConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
